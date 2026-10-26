@@ -15,6 +15,35 @@ from pathlib import Path
 from .core import SEVERITY_LABEL, TaskResult, rework_cost, wilson_interval
 
 
+def validity_notes(summary: dict) -> list[str]:
+    """Say out loud when the measurement cannot support a conclusion.
+
+    A 100% pass rate on a small set is not good news: it usually means the
+    set is too easy. Selling that as a clean bill of health would be the same
+    sin we accuse vendors of, so the report warns about it explicitly.
+    """
+    notes: list[str] = []
+    n = summary.get("n", 0)
+    rate = summary.get("pass_rate", 0.0)
+    if n and rate >= 0.9:
+        notes.append(
+            f"Techo detectado: {rate * 100:.0f}% de acierto con n={n}. "
+            "El set no distingue un modelo excelente de uno que solo acierta lo fácil."
+        )
+    if 0 < n < 30:
+        lo, hi = summary.get("ci95", [0.0, 1.0])
+        notes.append(
+            f"Muestra pequeña (n={n}): el IC 95% va de {lo * 100:.1f}% a "
+            f"{hi * 100:.1f}%. Cualquier conclusión es provisional."
+        )
+    if summary.get("failed") == 0:
+        notes.append(
+            "Cero fallos no significa cero riesgo: puede significar que el set "
+            "es demasiado fácil o que el criterio está mal definido."
+        )
+    return notes
+
+
 def build_summary(results: list[TaskResult], model: str, rate: float) -> dict:
     n = len(results)
     passed = sum(1 for r in results if r.passed)
@@ -36,7 +65,7 @@ def build_summary(results: list[TaskResult], model: str, rate: float) -> dict:
     severity = Counter(f.severity for f in failures)
     cost = rework_cost(failures, hourly_rate=rate)
 
-    return {
+    summary = {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "model": model,
         "n": n,
@@ -50,6 +79,8 @@ def build_summary(results: list[TaskResult], model: str, rate: float) -> dict:
         "cost": cost,
         "cost_per_100_outputs": round(cost["usd"] * (100 / n), 2) if n else 0.0,
     }
+    summary["validity_notes"] = validity_notes(summary)
+    return summary
 
 
 def _fmt_pct(value: float) -> str:
@@ -140,6 +171,16 @@ def render_markdown(summary: dict, results: list[TaskResult], max_examples: int 
             break
     if shown == 0:
         add("Ninguno.")
+    add("")
+
+    add("## Validez de la medición")
+    add("")
+    notes = summary.get("validity_notes") or []
+    if notes:
+        for note in notes:
+            add(f"- {note}")
+    else:
+        add("- Sin advertencias: la muestra y la tasa permiten concluir algo.")
     add("")
 
     add("## Metodología")

@@ -4,7 +4,7 @@ Este documento responde una sola pregunta: **¿hay evidencia de que alguien pagu
 
 ## Veredicto en una línea
 
-El **método** está validado (funciona, es barato y reproducible). La **demanda** no está validada. El mercado de freelancing no es el canal: allí la auditoría de IA se paga a $15–25, no a $1.500.
+El **método** está validado (funciona, es barato y reproducible). La **demanda** no está validada. El **set sintético** tampoco discrimina: un modelo real de 20B sacó 15/15. El mercado de freelancing no es el canal: allí la auditoría de IA se paga a $15–25, no a $1.500.
 
 ## Lo que se midió
 
@@ -32,6 +32,41 @@ El **método** está validado (funciona, es barato y reproducible). La **demanda
 
 La API de Freelancer **ignora las comillas** y busca por OR. Por eso `"ai audit"` devuelve 729 y `"llm evaluation"` 56: no son proyectos de auditoría, son proyectos que contienen “ai” **o** “audit”. Cualquier conclusión basada en esos conteos sería falsa. Solo los términos de una palabra son interpretables.
 
+## Segunda medición: un modelo real (2026-10-26)
+
+Se corrió el mismo golden set contra **`gpt-oss-20b`** (endpoint OpenAI-compatible anónimo, temperatura 0, n=15).
+
+| Métrica | Fixture `mock` | Modelo real |
+|---|---:|---:|
+| Acierto | 53,3% | **100%** |
+| Fallos | 7/15 | **0/15** |
+| IC 95% | 30,1–75,2% | 79,6–100% |
+
+Los outputs eran genuinos: JSON válido en los 10 casos de extracción y código que pasó los 5 tests ocultos. No fue un artefacto de parseo.
+
+### Lo que esto invalida
+
+El **53,3% no es una tasa de fallo de mercado**. Es un fixture construido con fallos plantados (identificador inventado, error de unidad, campo omitido, prosa en vez de JSON, dos off-by-one) para probar que el detector los encuentra. Un modelo real resolvió el set entero.
+
+Por tanto:
+
+- El set sintético es **demasiado fácil**: párrafos limpios de una sola fuente, funciones de libro de texto, sin contexto largo ni reglas de dominio.
+- Presentar el 53,3% como argumento de venta sería el mismo pecado que critico: un número que impresiona y no significa lo que parece.
+- El informe ahora marca **“techo detectado”** cuando el acierto es ≥ 90%, para no vender un 100% como certificado de calidad.
+
+### Lo que sí prueba
+
+1. El adaptador funciona contra un endpoint real, con reintentos y backoff.
+2. El grader ejecuta código real y no se deja impresionar por comentarios o docstrings.
+3. El informe sabe decir **“no concluyente”**, que es la característica que separa una medición de una opinión.
+
+### Qué haría falta para que discrimine
+
+- Documentos reales: tablas, notas al pie, condiciones de medida, valores contradictorios, 40 páginas de contexto.
+- Reglas de dominio que no están en el prompt: absoluto vs. recomendado, tolerancias, unidades implícitas.
+- Código integrado: APIs del repo, concurrencia, rendimiento, casos límite que el modelo no ve.
+- 200–500 outputs del cliente, no 15 sintéticos.
+
 ## Lo que esto significa
 
 1. **El comprador de $1.500+ no publica en Freelancer.** Publica cuando ya tiene un problema concreto y alguien de confianza se lo señala. El canal es outbound directo, no marketplaces.
@@ -45,6 +80,7 @@ La API de Freelancer **ignora las comillas** y busca por OR. Por eso `"ai audit"
 - Que el precio sea correcto: no hubo ni una propuesta enviada.
 - Que el segmento elegido sea el correcto: no se habló con ninguna agencia ni startup.
 - Que el harness aguante datos reales: el dataset es sintético (n=15).
+- Que el set actual mida algo difícil: un modelo real lo pasó entero. La demo prueba el detector, no la tasa de fallo.
 
 ## El test que sí decide (14 días)
 

@@ -8,10 +8,21 @@ Fecha: 2026-10-26. Este documento existe para intentar matar la idea, no para ve
 
 ## Lo que la demo prueba
 
-1. El método funciona: 15 casos, 16 tests, un informe reproducible con tasa, IC y taxonomía.
+1. El método funciona: 15 casos, 19 tests, un informe reproducible con tasa, IC y taxonomía.
 2. El coste de producción de un informe es **casi cero**: el harness corre en segundos y no necesita API de pago.
 3. La taxonomía detecta los cuatro fallos que importan comercialmente (invención, unidad, omisión, formato).
 4. El artefacto es falsable: cualquiera puede clonar el repo y obtener 8/15 otra vez.
+
+## Actualización 2026-10-26: la corrida real
+
+`gpt-oss-20b` pasó **15/15 (100%, IC95 79,6–100)** en el set sintético. El 53,3% del fixture venía de fallos plantados, no de una tasa de fallo observada.
+
+Consecuencias para la oferta:
+
+- **No se vende “la IA falla”.** Se vende “medimos *tu* workflow y te decimos dónde falla, con pruebas”. Si no falla, el entregable es una factura limpia con evidencia y una suite de regresión.
+- **El trabajo real es construir el golden set del cliente**: documentos ambiguos, contexto largo, reglas de dominio, código integrado. Eso no está commoditizado; el benchmark genérico sí.
+- **El negocio duradero es el retainer**, no la auditoría de una vez: los modelos cambian y el corpus del cliente se mantiene.
+- **Riesgo de falso negativo**: un set fácil produce un “todo bien” que no vale nada. El informe lo marca como “techo detectado” y la primera conversación debe incluir 20–50 outputs reales, no el dataset de demo.
 
 ## Lo que la demo NO prueba
 
@@ -52,7 +63,7 @@ Si en 30 días no se cumple nada de esto, la hipótesis es falsa y hay que girar
 | Día | Acción | Salida |
 |---|---|---|
 | 1–2 | Publicar este repo con el informe demo | URL pública |
-| 3–4 | Auditar un modelo real vía Ollama y publicar diferencias | Segundo informe |
+| 3–4 | Auditar un modelo real y publicar diferencias | **Hecho**: `gpt-oss-20b` 15/15; techo detectado |
 | 5–6 | Escribir 3 posts: un fallo concreto cada uno | Distribución |
 | 7–10 | 40 contactos (agencias, startups, consultoras) | 8 respuestas |
 | 11–12 | 3 llamadas de 20 min | Problema validado |
@@ -61,6 +72,7 @@ Si en 30 días no se cumple nada de esto, la hipótesis es falsa y hay que girar
 ## Riesgos que pueden romperlo
 
 - **Commoditización**: "AI code review" ya lo venden herramientas por $20/mes. La diferencia tiene que ser el *corpus específico del cliente*, no el análisis genérico.
+- **Techo del set**: un modelo bueno pasa un set fácil y el informe parece una certificación. Mitigación: marcar “techo detectado” y exigir datos reales del cliente.
 - **Mejora de modelos**: si los modelos dejan de inventar identificadores, la cuña de extracción se estrecha. La cuña de código (deuda, seguridad, mantenibilidad) aguanta más.
 - **Responsabilidad**: si te piden firmar que algo es seguro, no lo hagas. Vendes medición, no certificación.
 - **Confidencialidad**: auditar código de cliente implica NDA, aislamiento y no filtrar outputs. Sin esto, no hay segundo contrato.
@@ -68,3 +80,5 @@ Si en 30 días no se cumple nada de esto, la hipótesis es falsa y hay que girar
 ## Decisión
 
 La oportunidad es **real pero no automática**. El harness demuestra que el método es barato y reproducible; no demuestra que haya un comprador esperando. El siguiente gasto no debe ser más código: debe ser **40 conversaciones**. Si esas 40 no producen 3 llamadas, el problema no era la herramienta.
+
+La corrida real añade una condición: **el primer corpus debe ser del cliente**. El dataset de demo ya no es un argumento de venta; es la prueba de que el detector funciona. Si el corpus del cliente también pasa al 100%, el entregable es una factura limpia con evidencia, no un informe de miedo.

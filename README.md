@@ -4,10 +4,10 @@ Mide la **tasa de error real** de una salida de IA con graders deterministas y d
 
 No es un benchmark de modelos. Es una herramienta para auditar **el output concreto** de un modelo concreto en un dominio concreto.
 
-```
-Acierto: 53.3% (IC95 30.1-75.2)
-Fallos: 7/15 | coste/100 outputs: $1733
-```
+**Demo (fixture sintético):** 53.3% de acierto (IC95 30.1–75.2), 7/15 fallos.
+**Modelo real (gpt-oss-20b, mismo set):** **100% (15/15, IC95 79.6–100)**.
+
+El fixture está construido con fallos plantados para probar el detector. El modelo real pasó todo: el set sintético **no** demuestra que la IA falle, solo que el harness detecta fallos cuando existen. Un informe vendible usa outputs del cliente, no este set.
 
 ## El problema que mide
 
@@ -91,6 +91,13 @@ docs/
 **Código**: un test en `datasets/code/tests/` que importe `from solution import ...`, y una línea en `datasets/code/manifest.jsonl`.
 
 Regla: si el caso no se puede verificar sin pedirle permiso a un humano, no vale. La gracia es que el cliente pueda repetir el resultado.
+
+## Estado de validación
+
+- Método: **validado** (19 tests, demo reproducible, corrida contra un modelo real).
+- Demanda: **no validada**. El 2026-10-26 se midió GitHub (16.124 repos de evals) y Freelancer (15 proyectos con “llm”; 1 auditoría a $15–25). Cero proyectos de auditoría ≥ $1.500.
+- Set sintético: **no discrimina**. `gpt-oss-20b` pasó 15/15; el 53,3% del fixture es un test del detector, no una tasa de fallo de mercado. El informe ahora marca “techo detectado” cuando esto ocurre.
+- Detalle y criterios de muerte: [`docs/REALITY-CHECK.md`](docs/REALITY-CHECK.md) y [`docs/OPPORTUNITY.md`](docs/OPPORTUNITY.md).
 
 ## Qué NO es
 

@@ -1,0 +1,164 @@
+{
+  "summary": {
+    "generated_at": "2026-10-26T00:51:25+00:00",
+    "model": "gpt-oss-20b (Pollinations, tier anonimo)",
+    "n": 15,
+    "passed": 15,
+    "failed": 0,
+    "pass_rate": 1.0,
+    "ci95": [
+      0.7961,
+      1.0
+    ],
+    "by_family": {
+      "code": {
+        "n": 5,
+        "passed": 5,
+        "pass_rate": 1.0,
+        "failures": 0
+      },
+      "extraction": {
+        "n": 10,
+        "passed": 10,
+        "pass_rate": 1.0,
+        "failures": 0
+      }
+    },
+    "failure_kinds": {},
+    "severity_counts": {},
+    "cost": {
+      "minutes": 0,
+      "hours": 0.0,
+      "usd": 0.0,
+      "hourly_rate": 80.0
+    },
+    "cost_per_100_outputs": 0.0,
+    "validity_notes": [
+      "Techo detectado: 100% de acierto con n=15. El set no distingue un modelo excelente de uno que solo acierta lo fácil.",
+      "Muestra pequeña (n=15): el IC 95% va de 79.6% a 100.0%. Cualquier conclusión es provisional.",
+      "Cero fallos no significa cero riesgo: puede significar que el set es demasiado fácil o que el criterio está mal definido."
+    ]
+  },
+  "results": [
+    {
+      "task_id": "ext_001",
+      "family": "extraction",
+      "passed": true,
+      "failures": [],
+      "output": "{\"part_number\":\"APX7301\",\"vin_min\":2.7,\"vin_max\":5.5,\"iq_typ_ua\":12,\"package\":\"SOT-23-5\",\"temp_min_c\":-40,\"temp_max_c\":125}",
+      "duration_s": 0.0
+    },
+    {
+      "task_id": "ext_002",
+      "family": "extraction",
+      "passed": true,
+      "failures": [],
+      "output": "{\"part_number\":\"LRB-4820\",\"vin_min\":4.5,\"vin_max\":36,\"iq_typ_ua\":45,\"package\":\"MSOP-8\",\"temp_min_c\":-40,\"temp_max_c\":150}",
+      "duration_s": 0.0
+    },
+    {
+      "task_id": "ext_003",
+      "family": "extraction",
+      "passed": true,
+      "failures": [],
+      "output": "{\"part_number\":\"VX-2210\",\"vin_min\":3.0,\"vin_max\":18,\"iq_typ_ua\":3.5,\"package\":\"DFN-6\",\"temp_min_c\":-55,\"temp_max_c\":125}",
+      "duration_s": 0.0
+    },
+    {
+      "task_id": "ext_004",
+      "family": "extraction",
+      "passed": true,
+      "failures": [],
+      "output": "{\"part_number\":\"NW-1104\",\"vin_min\":0.9,\"vin_max\":3.6,\"iq_typ_ua\":1.2,\"package\":\"WLCSP-4\",\"temp_min_c\":-20,\"temp_max_c\":85}",
+      "duration_s": 0.0
+    },
+    {
+      "task_id": "ext_005",
+      "family": "extraction",
+      "passed": true,
+      "failures": [],
+      "output": "{\"part_number\":\"TRX-6090\",\"vin_min\":8,\"vin_max\":60,\"iq_typ_ua\":150,\"package\":\"TO-220-3\",\"temp_min_c\":-40,\"temp_max_c\":125}",
+      "duration_s": 0.0
+    },
+    {
+      "task_id": "ext_006",
+      "family": "extraction",
+      "passed": true,
+      "failures": [],
+      "output": "{\"part_number\":\"SXL-3302\",\"vin_min\":2.5,\"vin_max\":16,\"iq_typ_ua\":22,\"package\":\"SOIC-8\",\"temp_min_c\":-40,\"temp_max_c\":105}",
+      "duration_s": 0.0
+    },
+    {
+      "task_id": "ext_007",
+      "family": "extraction",
+      "passed": true,
+      "failures": [],
+      "output": "{\"part_number\":\"HLP-7541\",\"vin_min\":1.8,\"vin_max\":5.0,\"iq_typ_ua\":0.35,\"package\":\"SOT-563\",\"temp_min_c\":-40,\"temp_max_c\":85}",
+      "duration_s": 0.0
+    },
+    {
+      "task_id": "ext_008",
+      "family": "extraction",
+      "passed": true,
+      "failures": [],
+      "output": "{\"part_number\":\"MTR-8800\",\"vin_min\":6,\"vin_max\":100,\"iq_typ_ua\":90,\"package\":\"HTSSOP-16\",\"temp_min_c\":-40,\"temp_max_c\":150}",
+      "duration_s": 0.0
+    },
+    {
+      "task_id": "ext_009",
+      "family": "extraction",
+      "passed": true,
+      "failures": [],
+      "output": "{\"part_number\":\"QNX-2214\",\"vin_min\":2.9,\"vin_max\":32,\"iq_typ_ua\":7.5,\"package\":\"QFN-12\",\"temp_min_c\":-40,\"temp_max_c\":125}",
+      "duration_s": 0.0
+    },
+    {
+      "task_id": "ext_010",
+      "family": "extraction",
+      "passed": true,
+      "failures": [],
+      "output": "{\"part_number\":\"BLT-5503\",\"vin_min\":1.1,\"vin_max\":4.2,\"iq_typ_ua\":18,\"package\":\"SOT-23-3\",\"temp_min_c\":0,\"temp_max_c\":70}",
+      "duration_s": 0.0
+    },
+    {
+      "task_id": "code_001",
+      "family": "code",
+      "passed": true,
+      "failures": [],
+      "output": "```python\nimport re\n\ndef parse_duration(text: str) -> int:\n    \"\"\"\n    Convierte una cadena de duración en formato '1h30m45s' a segundos.\n    Solo se admiten las unidades h, m y s, en ese orden, sin espacios.\n    \"\"\"\n    pattern = r'(?:(\\d+)h)?(?:(\\d+)m)?(?:(\\d+)s)?'\n    match = re.fullmatch(pattern, text)\n    if not match:\n        raise ValueError(f\"Formato inválido: {text}\")\n\n    hours, minutes, seconds = match.groups()\n    total = 0\n    if hours:\n        total += int(hours) * 3600\n    if minutes:\n        total += int(minutes) * 60\n    if seconds:\n        total += int(seconds)\n    return total\n```",
+      "duration_s": 0.558
+    },
+    {
+      "task_id": "code_002",
+      "family": "code",
+      "passed": true,
+      "failures": [],
+      "output": "```python\ndef chunk(lst: list, n: int) -> list[list]:\n    \"\"\"\n    Divide `lst` into sublists of length `n`. The final sublist may be shorter.\n    Raises ValueError if n <= 0.\n    \"\"\"\n    if n <= 0:\n        raise ValueError(\"n must be greater than 0\")\n    return [lst[i:i + n] for i in range(0, len(lst), n)]\n```",
+      "duration_s": 0.534
+    },
+    {
+      "task_id": "code_003",
+      "family": "code",
+      "passed": true,
+      "failures": [],
+      "output": "```python\ndef safe_div(a, b):\n    try:\n        return float(a) / float(b)\n    except ZeroDivisionError:\n        return None\n```",
+      "duration_s": 0.617
+    },
+    {
+      "task_id": "code_004",
+      "family": "code",
+      "passed": true,
+      "failures": [],
+      "output": "```python\ndef crc16_modbus(data: bytes) -> int:\n    crc = 0xFFFF\n    for byte in data:\n        crc ^= byte\n        for _ in range(8):\n            if crc & 0x0001:\n                crc = (crc >> 1) ^ 0xA001\n            else:\n                crc >>= 1\n    return crc & 0xFFFF\n```",
+      "duration_s": 0.634
+    },
+    {
+      "task_id": "code_005",
+      "family": "code",
+      "passed": true,
+      "failures": [],
+      "output": "```python\ndef moving_average(xs: list[float], n: int) -> list[float]:\n    if n <= 0 or n > len(xs):\n        raise ValueError(\"n must be in the range 1..len(xs)\")\n    return [\n        sum(xs[i : i + n]) / n\n        for i in range(len(xs) - n + 1)\n    ]\n```",
+      "duration_s": 0.605
+    }
+  ]
+}

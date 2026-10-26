@@ -15,6 +15,7 @@ El reality check dice que el comprador no está en Freelancer. Está en empresas
 - “Soy experto en IA” — no lo eres; te desmontan en dos preguntas.
 - “Hago auditorías de seguridad” — no firmas seguridad funcional; es otra cosa y tiene responsabilidad legal.
 - “Tengo certificaciones” — no.
+- “El 53% de las salidas de IA fallan” — es un fixture con fallos plantados, no una tasa real. Si lo dices, te lo desmontan.
 - “Te audito gratis” sin límite — te usan y desaparecen. La primera es gratis **a cambio de un caso anonimizado**.
 
 ## Mensaje 1 — agencia (ES)
@@ -25,7 +26,7 @@ El reality check dice que el comprador no está en Freelancer. Está en empresas
 >
 > Vi que {empresa} hace {proyecto concreto}. Una pregunta incómoda: cuando la IA genera código o extracciones para un cliente, ¿alguien comprueba automáticamente que no inventa datos ni se come campos?
 >
-> Lo pregunto porque monté un harness público que mide exactamente eso: 15 casos, graders deterministas, informe con tasa de error e intervalo de confianza. En la demo, el modelo falla 7 de 15 y el informe señala qué falló y cuánto cuesta rehacerlo.
+> Lo pregunto porque monté un harness público que mide exactamente eso: graders deterministas, informe con tasa de error e intervalo de confianza. En mi demo, el fixture falla 7 de 15; un modelo real pasó 15 de 15 en el mismo set. Por eso no vendo “la IA falla”: vendo medir *tu* caso con *tus* datos, que es donde aparecen los fallos que importan.
 >
 > Si te encaja, audito 200 outputs reales de un proyecto vuestro (sin datos sensibles) y te entrego los fallos reproducidos. La primera es gratis a cambio de permiso para publicar el caso anonimizado.
 >
@@ -39,7 +40,7 @@ El reality check dice que el comprador no está en Freelancer. Está en empresas
 >
 > Hi {name} — saw {specific feature or post}. Quick question: when Cursor or Copilot writes code for {product}, what catches the cases where it looks right but isn’t?
 >
-> I built a small public harness for exactly that: deterministic graders, hidden tests, a failure taxonomy and a rework-cost estimate. Demo run: 7/15 failures, 53% pass rate (95% CI 30–75).
+> I built a small public harness for exactly that: deterministic graders, hidden tests, a failure taxonomy and a rework-cost estimate. My demo fixture fails 7/15; a real model passed 15/15 on the same set. That’s the point: generic tests are easy, your data is not.
 >
 > I’m offering three audits this month: 200–500 real outputs, a report with reproduced failures, and a regression suite you can run in CI. The first is free/at cost in exchange for an anonymized case study.
 >

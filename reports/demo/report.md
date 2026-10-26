@@ -1,6 +1,6 @@
 # Auditoría de salida de IA — `mock:demo-model`
 
-**Fecha:** 2026-10-26T00:41:12+00:00  
+**Fecha:** 2026-10-26T00:54:20+00:00  
 **Casos evaluados:** 15  
 **Método:** golden set + graders deterministas (ejecución de código y comparación campo a campo).
 
@@ -45,6 +45,10 @@ Coste estimado de retrabajo si esto se repite 100 veces: **$1733** (21.7 h a $80
 5. **ext_009** — `format_error` (sev 2): respuesta no contiene un objeto JSON parseable
 6. **code_002** — `logic_error` (sev 3): E assert [[1, 2], [3, 4]] == [[1, 2], [3, 4], [5]]
 7. **code_005** — `logic_error` (sev 3): E assert [2.0, 3.0] == [2.0, 3.0, 4.0]
+
+## Validez de la medición
+
+- Muestra pequeña (n=15): el IC 95% va de 30.1% a 75.2%. Cualquier conclusión es provisional.
 
 ## Metodología
 

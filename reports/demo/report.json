@@ -1,6 +1,6 @@
 {
   "summary": {
-    "generated_at": "2026-10-26T00:41:12+00:00",
+    "generated_at": "2026-10-26T00:54:20+00:00",
     "model": "mock:demo-model",
     "n": 15,
     "passed": 8,
@@ -43,7 +43,10 @@
       "usd": 260.0,
       "hourly_rate": 80.0
     },
-    "cost_per_100_outputs": 1733.33
+    "cost_per_100_outputs": 1733.33,
+    "validity_notes": [
+      "Muestra pequeña (n=15): el IC 95% va de 30.1% a 75.2%. Cualquier conclusión es provisional."
+    ]
   },
   "results": [
     {
@@ -167,7 +170,7 @@
       "passed": true,
       "failures": [],
       "output": "```python\nimport re\n\n\ndef parse_duration(text: str) -> int:\n    total = 0\n    for value, unit in re.findall(r\"(\\d+)([hms])\", text):\n        total += int(value) * {\"h\": 3600, \"m\": 60, \"s\": 1}[unit]\n    return total\n```",
-      "duration_s": 0.604
+      "duration_s": 0.551
     },
     {
       "task_id": "code_002",
@@ -182,7 +185,7 @@
         }
       ],
       "output": "```python\ndef chunk(lst, n):\n    if n <= 0:\n        raise ValueError(\"n must be positive\")\n    return [lst[i:i + n] for i in range(0, len(lst) - 1, n)]\n```",
-      "duration_s": 0.594
+      "duration_s": 0.612
     },
     {
       "task_id": "code_003",
@@ -190,7 +193,7 @@
       "passed": true,
       "failures": [],
       "output": "```python\ndef safe_div(a, b):\n    if b == 0:\n        return None\n    return a / b\n```",
-      "duration_s": 0.554
+      "duration_s": 0.581
     },
     {
       "task_id": "code_004",
@@ -198,7 +201,7 @@
       "passed": true,
       "failures": [],
       "output": "```python\ndef crc16_modbus(data: bytes) -> int:\n    crc = 0xFFFF\n    for byte in data:\n        crc ^= byte\n        for _ in range(8):\n            if crc & 1:\n                crc = (crc >> 1) ^ 0xA001\n            else:\n                crc >>= 1\n    return crc\n```",
-      "duration_s": 0.583
+      "duration_s": 0.692
     },
     {
       "task_id": "code_005",
@@ -213,7 +216,7 @@
         }
       ],
       "output": "```python\ndef moving_average(xs, n):\n    if n <= 0 or n > len(xs):\n        raise ValueError(\"invalid window\")\n    return [sum(xs[i:i + n]) / n for i in range(len(xs) - n)]\n```",
-      "duration_s": 0.576
+      "duration_s": 0.712
     }
   ]
 }

@@ -1,0 +1,5 @@
+{"task_id": "code_001", "output": "```python\nimport re\n\n\ndef parse_duration(text: str) -> int:\n    total = 0\n    for value, unit in re.findall(r\"(\\d+)([hms])\", text):\n        total += int(value) * {\"h\": 3600, \"m\": 60, \"s\": 1}[unit]\n    return total\n```"}
+{"task_id": "code_002", "output": "```python\ndef chunk(lst, n):\n    if n <= 0:\n        raise ValueError(\"n must be positive\")\n    return [lst[i:i + n] for i in range(0, len(lst) - 1, n)]\n```"}
+{"task_id": "code_003", "output": "```python\ndef safe_div(a, b):\n    if b == 0:\n        return None\n    return a / b\n```"}
+{"task_id": "code_004", "output": "```python\ndef crc16_modbus(data: bytes) -> int:\n    crc = 0xFFFF\n    for byte in data:\n        crc ^= byte\n        for _ in range(8):\n            if crc & 1:\n                crc = (crc >> 1) ^ 0xA001\n            else:\n                crc >>= 1\n    return crc\n```"}
+{"task_id": "code_005", "output": "```python\ndef moving_average(xs, n):\n    if n <= 0 or n > len(xs):\n        raise ValueError(\"invalid window\")\n    return [sum(xs[i:i + n]) / n for i in range(len(xs) - n)]\n```"}

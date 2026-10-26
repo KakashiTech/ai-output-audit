@@ -1,0 +1,10 @@
+{"task_id": "ext_001", "output": "{\"part_number\": \"APX7301\", \"vin_min\": 2.7, \"vin_max\": 5.5, \"iq_typ_ua\": 12, \"package\": \"SOT-23-5\", \"temp_min_c\": -40, \"temp_max_c\": 125}"}
+{"task_id": "ext_002", "output": "{\"part_number\": \"LRB-4820\", \"vin_min\": 4.5, \"vin_max\": 36, \"iq_typ_ua\": 0.8, \"package\": \"MSOP-8\", \"temp_min_c\": -40, \"temp_max_c\": 150}"}
+{"task_id": "ext_003", "output": "{\"part_number\": \"VX-2210\", \"vin_min\": 3.0, \"vin_max\": 18, \"iq_typ_ua\": 3.5, \"package\": \"DFN-6\", \"temp_min_c\": -55, \"temp_max_c\": 125}"}
+{"task_id": "ext_004", "output": "{\"part_number\": \"NW-1104\", \"vin_min\": 0.9, \"vin_max\": 3.6, \"iq_typ_ua\": 0.0012, \"package\": \"WLCSP-4\", \"temp_min_c\": -20, \"temp_max_c\": 85}"}
+{"task_id": "ext_005", "output": "{\"part_number\": \"TRX-6010\", \"vin_min\": 8, \"vin_max\": 60, \"iq_typ_ua\": 150, \"package\": \"TO-220-3\", \"temp_min_c\": -40, \"temp_max_c\": 125}"}
+{"task_id": "ext_006", "output": "{\"part_number\": \"SXL-3302\", \"vin_min\": 2.5, \"vin_max\": 16, \"iq_typ_ua\": 22, \"package\": \"SOIC-8\", \"temp_min_c\": -40, \"temp_max_c\": 105}"}
+{"task_id": "ext_007", "output": "{\"part_number\": \"HLP-7541\", \"vin_min\": 1.8, \"vin_max\": 5.0, \"iq_typ_ua\": 0.35, \"temp_min_c\": -40, \"temp_max_c\": 85}"}
+{"task_id": "ext_008", "output": "{\"part_number\": \"MTR-8800\", \"vin_min\": 6, \"vin_max\": 100, \"iq_typ_ua\": 90, \"package\": \"HTSSOP-16\", \"temp_min_c\": -40, \"temp_max_c\": 150}"}
+{"task_id": "ext_009", "output": "Claro, aquí tienes los datos del QNX-2214: es un controlador USB-C que acepta de 2.9 V a 32 V, consume 7.5 uA en standby, viene en QFN-12 y aguanta de -40 C a 125 C. Avísame si necesitas algo más."}
+{"task_id": "ext_010", "output": "{\"part_number\": \"BLT-5503\", \"vin_min\": 1.1, \"vin_max\": 4.2, \"iq_typ_ua\": 18, \"package\": \"SOT-23-3\", \"temp_min_c\": 0, \"temp_max_c\": 70}"}

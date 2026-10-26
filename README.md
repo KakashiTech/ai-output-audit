@@ -82,6 +82,9 @@ datasets/
 runs/demo-model outputs grabados que emulan un modelo "casi bueno"
 docs/
   OPPORTUNITY.md  memo crítico: qué prueba esto, qué no, y cuándo matar la idea
+  REALITY-CHECK.md  qué se midió (GitHub, Freelancer, modelo real) y qué invalida
+  OUTREACH.md    guion para 40 contactos, sin promesas falsas
+  PROPOSAL.md    propuesta de una página + intake de datos
 ```
 
 ## Añadir casos

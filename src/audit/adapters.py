@@ -12,6 +12,8 @@ from __future__ import annotations
 
 import json
 import os
+import re
+import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -62,12 +64,33 @@ class OpenAICompatibleAdapter:
         api_key: str | None = None,
         temperature: float = 0.0,
         timeout_s: int = 120,
+        max_retries: int = 6,
     ):
         self.model = model
         self.base_url = (base_url or os.environ.get("OPENAI_BASE_URL") or "https://api.openai.com/v1").rstrip("/")
         self.api_key = api_key or os.environ.get("OPENAI_API_KEY", "")
         self.temperature = temperature
         self.timeout_s = timeout_s
+        self.max_retries = max_retries
+
+    @staticmethod
+    def _retry_after(detail: str, headers) -> float:
+        """Respect the server's own backoff instead of hammering it.
+
+        Free tiers often answer 402/429 with a human sentence such as
+        "Retry after 7s". Guessing a fixed delay either wastes time or gets
+        the client banned, so we parse what the server actually said.
+        """
+        header = headers.get("Retry-After") if headers else None
+        if header:
+            try:
+                return min(90.0, float(header))
+            except ValueError:
+                pass
+        match = re.search(r"retry after\s+(\d+(?:\.\d+)?)\s*s", detail, re.IGNORECASE)
+        if match:
+            return min(90.0, float(match.group(1)) + 1.0)
+        return 10.0
 
     def generate(self, task: dict, prompt: str) -> str:
         payload = json.dumps(
@@ -95,12 +118,21 @@ class OpenAICompatibleAdapter:
             },
             method="POST",
         )
-        try:
-            with urllib.request.urlopen(req, timeout=self.timeout_s) as resp:
-                body = json.loads(resp.read().decode())
-        except urllib.error.HTTPError as exc:
-            detail = exc.read().decode(errors="replace")[:500]
-            raise AdapterError(f"HTTP {exc.code}: {detail}") from exc
-        except urllib.error.URLError as exc:
-            raise AdapterError(f"no se pudo conectar a {self.base_url}: {exc.reason}") from exc
-        return body["choices"][0]["message"]["content"]
+        for attempt in range(self.max_retries + 1):
+            try:
+                with urllib.request.urlopen(req, timeout=self.timeout_s) as resp:
+                    body = json.loads(resp.read().decode())
+                return body["choices"][0]["message"]["content"]
+            except urllib.error.HTTPError as exc:
+                detail = exc.read().decode(errors="replace")[:500]
+                retryable = exc.code in (402, 429, 500, 502, 503, 504)
+                if retryable and attempt < self.max_retries:
+                    time.sleep(self._retry_after(detail, exc.headers))
+                    continue
+                raise AdapterError(f"HTTP {exc.code}: {detail}") from exc
+            except urllib.error.URLError as exc:
+                if attempt < self.max_retries:
+                    time.sleep(5.0)
+                    continue
+                raise AdapterError(f"no se pudo conectar a {self.base_url}: {exc.reason}") from exc
+        raise AdapterError("se agotaron los reintentos")

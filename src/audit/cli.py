@@ -77,15 +77,16 @@ def cmd_run(args: argparse.Namespace) -> int:
 
     if args.adapter == "mock":
         adapter = MockAdapter(args.run_dir)
-        model_name = f"mock:{Path(args.run_dir).name}"
+        model_name = args.label or f"mock:{Path(args.run_dir).name}"
     else:
         adapter = OpenAICompatibleAdapter(
             model=args.model,
             base_url=args.base_url,
             api_key=args.api_key,
             temperature=args.temperature,
+            max_retries=args.retries,
         )
-        model_name = args.model
+        model_name = args.label or args.model
 
     if args.family:
         tasks = [t for t in tasks if t["family"] == args.family]
@@ -138,6 +139,8 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--base-url", default=None)
     run.add_argument("--api-key", default=None)
     run.add_argument("--temperature", type=float, default=0.0)
+    run.add_argument("--retries", type=int, default=6, help="reintentos ante 429/402")
+    run.add_argument("--label", default=None, help="nombre del modelo en el informe")
     run.add_argument("--rate", type=float, default=80.0, help="USD/hora para estimar retrabajo")
     run.add_argument("--family", choices=["extraction", "code"], default=None)
     run.add_argument("--limit", type=int, default=None)

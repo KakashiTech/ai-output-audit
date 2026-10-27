@@ -1,0 +1,15 @@
+Asunto: ¿revisáis el output de IA antes de entregarlo?
+
+Hola {nombre}:
+
+Vi que {empresa} {senal}. Una pregunta incómoda: cuando la IA genera código o extracciones para un cliente, ¿alguien comprueba automáticamente que no inventa datos ni se come campos?
+
+Monté un harness público que mide exactamente eso: graders deterministas, informe con tasa de error e intervalo de confianza. En mi demo, el fixture falla 7 de 15; un modelo real pasó 15 de 15 en el mismo set. Por eso no vendo "la IA falla": vendo medir tu caso con tus datos, que es donde aparecen los fallos que importan.
+
+Si te encaja, audito 20-50 outputs reales de un proyecto vuestro (anonimizados) y te entrego los fallos reproducidos. La primera es gratis o a coste a cambio de permiso para publicar el caso anonimizado.
+
+Repo: https://github.com/KakashiTech/ai-output-audit
+
+¿Te mando el informe demo de dos páginas?
+
+Un saludo,

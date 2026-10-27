@@ -6,3 +6,8 @@ build/
 dist/
 *.egg-info/
 .DS_Store
+
+# Correo y contactos reales: nunca al repo
+outbox/
+inbox/
+*.env

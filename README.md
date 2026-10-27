@@ -85,6 +85,15 @@ docs/
   REALITY-CHECK.md  qué se midió (GitHub, Freelancer, modelo real) y qué invalida
   OUTREACH.md    guion para 40 contactos, sin promesas falsas
   PROPOSAL.md    propuesta de una página + intake de datos
+  SALES-FAQ.md   respuestas aprobadas a preguntas técnicas y objeciones
+  CALL-SCRIPT.md guion de 15 minutos, objeciones y video demo
+  OPERATIONS.md  buzón dedicado, aprobación por carpetas, SLA y seguridad
+scripts/
+  outreach.py    draft / send / fetch / status con aprobación humana
+templates/
+  agency_es.txt  plantilla de correo para agencias
+data/
+  targets.csv    plantilla de 40 objetivos (sin datos reales en el repo)
 ```
 
 ## Añadir casos

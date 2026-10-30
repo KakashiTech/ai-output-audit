@@ -41,7 +41,7 @@ Requiere Python 3.10+ y `pytest`. Sin dependencias de red.
 
 ```bash
 make demo     # regenera el run sintético y produce reports/demo/
-make test     # 16 tests del harness
+make test     # 24 tests: 19 del harness + 5 del sistema de correo
 cat reports/demo/report.md
 ```
 
@@ -106,7 +106,7 @@ Regla: si el caso no se puede verificar sin pedirle permiso a un humano, no vale
 
 ## Estado de validación
 
-- Método: **validado** (19 tests, demo reproducible, corrida contra un modelo real).
+- Método: **validado** (19 tests del harness + 5 del correo, demo reproducible, corrida contra un modelo real).
 - Demanda: **no validada**. El 2026-10-26 se midió GitHub (16.124 repos de evals) y Freelancer (15 proyectos con “llm”; 1 auditoría a $15–25). Cero proyectos de auditoría ≥ $1.500.
 - Set sintético: **no discrimina**. `gpt-oss-20b` pasó 15/15; el 53,3% del fixture es un test del detector, no una tasa de fallo de mercado. El informe ahora marca “techo detectado” cuando esto ocurre.
 - Detalle y criterios de muerte: [`docs/REALITY-CHECK.md`](docs/REALITY-CHECK.md) y [`docs/OPPORTUNITY.md`](docs/OPPORTUNITY.md).
